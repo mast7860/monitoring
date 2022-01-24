@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  
+  prometheus:
+    image: prom/prometheus
+    volumes:
+            - ~/learning/monitoring/prometheus-grafana/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+
+  grafana:
+    image: grafana/grafana
+    volumes:
+            - ~/learning/monitoring/prometheus-grafana/grafana/grafana.ini:/etc/grafana/grafana.ini
+            - ~/learning/monitoring/prometheus-grafana/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
+    ports:
+      - 3000:3000
+    links:
+            - prometheus
